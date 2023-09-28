@@ -1,12 +1,4 @@
 
-
-
-
-
-
-
-
-
 class NimPlayer:
   
   def __init__(self):
