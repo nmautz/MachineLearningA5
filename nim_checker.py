@@ -13,6 +13,8 @@ Desc: Added looped tests to make sure they are following the rules, and to find 
 import copy
 import random
 import traceback
+import time
+import sys
 
 
 
@@ -70,17 +72,33 @@ def check():
     return True, None
 
 try:
+    def seconds_to_formatted_time(seconds):
+        return str(int(seconds/60)) + " minutes " + str(int(seconds%60)) + " seconds"
+
     target = 100000
     failed = 0
     passed = 0
     print("Test 4: Testing ", target, " boards")
+    time_elapsed_s = 0
+
     for i in range(target):
+        s_time = time.time()
         result,board = check()
+        e_time = time.time()
+        time_elapsed_s += e_time - s_time
+        estimated_time_remaining_s = time_elapsed_s * (target - i) / (i + 1)
         if result:
             passed +=1
+            if i%2000 == 0:
+                sys.stdout.write("\rTest 4: Tested " + str(i) + " boards. " + seconds_to_formatted_time(estimated_time_remaining_s) + " seconds remaining")
+                sys.stdout.flush()
         else:
+            print()
             failed +=1
             print("Failed board: ", board)
+
+        
+    print()
     print("Passed: ", passed, " Failed: ", failed)
     if failed > 0:
         print("Test 4: Fail")
