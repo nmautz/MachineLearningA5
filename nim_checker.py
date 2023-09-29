@@ -7,7 +7,7 @@ class and play function correctly. This checker also does some basic testing to 
 Revision
 Date: 09/28/23
 Authon: Nathan Mautz
-Desc: Added many tests to make sure they are following the rules.
+Desc: Added looped tests to make sure they are following the rules, and to find edge cases.
 """
 
 import copy
@@ -73,7 +73,7 @@ try:
     target = 100000
     failed = 0
     passed = 0
-    print("Testing ", target, " boards")
+    print("Test 4: Testing ", target, " boards")
     for i in range(target):
         result,board = check()
         if result:
@@ -82,7 +82,11 @@ try:
             failed +=1
             print("Failed board: ", board)
     print("Passed: ", passed, " Failed: ", failed)
+    if failed > 0:
+        print("Test 4: Fail")
+    else:
+        print("Test 4: Pass")
 
 except Exception as e:
-    print("Test 4: Fail")
+    print("Test 4: Exception/Fail")
     traceback.print_exc()
