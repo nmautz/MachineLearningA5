@@ -43,6 +43,9 @@ def check():
     board_length = 4
     for j in range(board_length):
         board.append(random.randint(0,8))
+    start_board = board.copy()
+    if board == [0,0,0,0]:
+        return True,None
     while sum(board) != 1:
         prev_board = copy.deepcopy(board)
         board = p1.play(board)
@@ -50,21 +53,21 @@ def check():
         for i,val in enumerate(board):
             if val <0:
                 print("Test 4: Fail (Returning negative number of sticks in board)")
-                return False,board
+                return False,start_board
             if val != prev_board[i]:
                 changes +=1
             if val > prev_board[i]:
                 print("Test 4: Fail (Increasing number of sticks in Board)")
-                return False,board
+                return False,start_board
         if changes > 1:
             print("Test 4: Fail (Changing multiple rows)") 
-            return False,board
+            return False,start_board
         if changes < 1:
             print("Test 4: Fail (No change to board state)")
-            return False,board
+            return False,start_board
     
 
-    return True,board
+    return True, None
 
 try:
     target = 100000
