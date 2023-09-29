@@ -41,6 +41,7 @@ except :
 
 
 def check():
+    # updated to add random board - NM
     board = []
     board_length = 4
     for j in range(board_length):
@@ -48,6 +49,7 @@ def check():
     start_board = board.copy()
     if board == [0,0,0,0]:
         return True,None
+    #------
     while sum(board) != 1:
         prev_board = copy.deepcopy(board)
         board = p1.play(board)
@@ -71,6 +73,7 @@ def check():
 
     return True, None
 
+#Checks many boards to check for edge cases - NM
 try:
     def seconds_to_formatted_time(seconds):
         return str(int(seconds/60)) + " minutes " + str(int(seconds%60)) + " seconds"
@@ -107,4 +110,4 @@ try:
 
 except Exception as e:
     print("Test 4: Exception/Fail")
-    traceback.print_exc()
+    traceback.print_exc() #Shows full exception - NM
