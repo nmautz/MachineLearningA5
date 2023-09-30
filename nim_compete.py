@@ -24,8 +24,12 @@ except:
 try:
     def seconds_to_formatted_time(seconds):
         return str(int(seconds/60)) + " minutes " + str(int(seconds%60)) + " seconds"
-
-    target = 10000
+    target = 100
+    try:
+      target = int(sys.argv[1])
+    except:
+      print("Error: ./nim_complete (runcount).... continuing with default value 100")
+      time.sleep(2)
     p1_wins = 0
     p2_wins = 0
     np1_wins = 0
