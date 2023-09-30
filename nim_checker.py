@@ -20,14 +20,14 @@ import numpy as np
 
 
 try:
-    import nim_player1 
+    import nim_player2 
     print("Test 1: Pass")
 except:
     print("Test 1: Fail (Put this file in the same directory as your \'nim_player.py\'",end="")
     print(" Or, rename your file for the assignment to \'nim_player.py\')")
 
 try:
-    p1 = nim_player1.NimPlayer()
+    p1 = nim_player2.NimPlayer()
     print("Test 2: Pass")
 except:
     print("Test 3: Fail (Make sure that your class is named \'NimPlayer\')")    
@@ -46,7 +46,7 @@ def check():
     board = []
     board_length = 4
     for j in range(board_length):
-        board.append(random.randint(0,8))
+        board.append(random.randint(1,8))
     #------
     while sum(board) != 1:
         prev_board = copy.deepcopy(board)

@@ -8,7 +8,7 @@ import numpy as np
 
 
 try:
-    import nim_player1 
+    import nim_player1
     print("Loaded nim_player1.py")
 except:
     print("Couldn't find nim_player1.py")
@@ -26,31 +26,58 @@ try:
         return str(int(seconds/60)) + " minutes " + str(int(seconds%60)) + " seconds"
 
     target = 10000
-    failed = 0
-    passed = 0
+    p1_wins = 0
+    p2_wins = 0
     print("Testing ", target, " boards")
+    print()
     time_elapsed_s = 0
-
+    def is_board_lost(board):
+        for i in range(len(board)):
+            if board[i] > 0:
+                return False
+        return True
     for i in range(target):
         s_time = time.time()
 
-        
+        board = []
+        board_length = 4
+        for j in range(board_length):
+          board.append(random.randint(1,8))
+          
+        does_player_one_starts_first = bool(random.randint(0,1))
+        p1 = nim_player1.NimPlayer()
+        p2 = nim_player2.NimPlayer()
+        if not does_player_one_starts_first:
+          p1 = nim_player2.NimPlayer()
+          p2 = nim_player1.NimPlayer()
 
+        p1_winner = None
+        while p1_winner == None:
+            board = p1.play(board)
+            if is_board_lost(board):
+              p1_winner = False
+            board = p2.play(board)
+            if is_board_lost(board):
+              p1_winner = True
+
+        if p1_winner:
+            p1_wins += 1
+        else:
+            p2_wins += 1     
+        
         e_time = time.time()
         time_elapsed_s += e_time - s_time
         estimated_time_remaining_s = time_elapsed_s * (target - i) / (i + 1)
         if i%2000 == 0:
-          sys.stdout.write("\rTest 4: Tested " + str(i) + " boards. " + seconds_to_formatted_time(estimated_time_remaining_s) + " seconds remaining")
+          sys.stdout.write("\rTested " + str(i) + " boards. " + seconds_to_formatted_time(estimated_time_remaining_s) + " seconds remaining")
           sys.stdout.flush()
 
 
         
     print()
-    print("Passed: ", passed, " Failed: ", failed)
-    if failed > 0:
-        print("Test 4: Fail")
-    else:
-        print("Test 4: Pass")
+    print("P1 Wins: ", p1_wins, " p2 Wins: ", p2_wins)
+    print("P1 Win/Loss Ratio:", p1_wins/target, " P2 Win/Loss Ratio:", p2_wins/target)
+  
 
 except Exception as e:
     print("Test 4: Exception/Fail")
