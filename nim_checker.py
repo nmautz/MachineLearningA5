@@ -78,7 +78,7 @@ try:
     def seconds_to_formatted_time(seconds):
         return str(int(seconds/60)) + " minutes " + str(int(seconds%60)) + " seconds"
 
-    target = 100000
+    target = 1000000
     failed = 0
     passed = 0
     print("Test 4: Testing ", target, " boards")

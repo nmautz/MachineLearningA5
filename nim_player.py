@@ -1,4 +1,6 @@
-
+#Nathan Mautz
+#09/29/23
+#Nim player that calculates all possible moves and plays the first one.
 class NimPlayer:
   
   def __init__(self):
