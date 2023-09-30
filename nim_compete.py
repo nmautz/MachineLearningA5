@@ -42,14 +42,7 @@ try:
             if board[i] > 0:
                 return False
         return True
-    does_player_one_starts_first = bool(random.randint(0,1))
-    p1 = nim_player1.NimPlayer()
-    p2 = nim_player2.NimPlayer()
-    player_1 = 1
-    if not does_player_one_starts_first:
-      p1 = nim_player2.NimPlayer()
-      p2 = nim_player1.NimPlayer()
-      player_1 = 2
+
     for i in range(target):
         s_time = time.time()
 
@@ -58,7 +51,14 @@ try:
         for j in range(board_length):
           board.append(random.randint(1,8))
           
-
+        does_player_one_starts_first = bool(random.randint(0,1))
+        p1 = nim_player1.NimPlayer()
+        p2 = nim_player2.NimPlayer()
+        player_1 = 1
+        if does_player_one_starts_first == 0:
+          p1 = nim_player2.NimPlayer()
+          p2 = nim_player1.NimPlayer()
+          player_1 = 2
 
         p1_winner = None
         while p1_winner == None:
