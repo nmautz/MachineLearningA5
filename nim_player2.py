@@ -16,6 +16,8 @@ class NimPlayer:
       total ^= number
     return total
 
+  def get_state_score(state_arr, depth):
+    return 1
 
   def get_next_states(self, state_arr):
     next_states_arr = []  
@@ -32,10 +34,15 @@ class NimPlayer:
     next_states = self.get_next_states(state_arr)
     if len(next_states) == 0:
       return [0,0,0,0]
-  
-    for next_state in next_states:
+    
+    best_score = None
+    best_state = None
 
-      if self.nim_sum(next_state) == 0:
-        return next_state
+    for next_state in next_states:
+      score = self.get_state_score(next_state, 4)
+      if best_score == None or score > best_score:
+        best_score = score
+        best_state = next_state
+  
       
-    return next_states[0]
+      
