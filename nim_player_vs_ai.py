@@ -119,3 +119,4 @@ while winner == None:
         break
     
         
+print("The winner is: ", winner)
