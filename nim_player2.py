@@ -40,9 +40,12 @@ class NimPlayer:
 
     for next_state in next_states:
       score = self.get_state_score(next_state, 4)
-      if best_score == None or score > best_score:
+      if best_score == None or score < best_score:
         best_score = score
         best_state = next_state
+
+    
+    return best_state
   
       
       
