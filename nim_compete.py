@@ -80,9 +80,8 @@ try:
         e_time = time.time()
         time_elapsed_s += e_time - s_time
         estimated_time_remaining_s = time_elapsed_s * (target - i) / (i + 1)
-        if i%2000 == 0:
-          sys.stdout.write("\rTested " + str(i) + " boards. " + seconds_to_formatted_time(estimated_time_remaining_s) + " seconds remaining")
-          sys.stdout.flush()
+        sys.stdout.write("\rTested " + str(i) + " boards. " + seconds_to_formatted_time(estimated_time_remaining_s) + " seconds remaining")
+        sys.stdout.flush()
 
 
         
