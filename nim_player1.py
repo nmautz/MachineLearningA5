@@ -30,7 +30,7 @@ class NimPlayer:
 
   def play(self, state_arr):
     next_states = self.get_next_states(state_arr)
-    if len(next_states) == 0 or [0,0,0,0] in next_states:
+    if len(next_states) == 0:
       return [0,0,0,0]
   
     for next_state in next_states:
