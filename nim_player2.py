@@ -60,10 +60,6 @@ class NimPlayer:
       else:
         if self.nim_sum(next_state) == 0:
           return next_state
-    print('----------------')
-        
-    print("currstate", state_arr)
-    print("next_states:",next_states)
-    print('----------------')
+
     return next_states[0]
 
