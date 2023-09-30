@@ -30,8 +30,10 @@ np = nim_player1.NimPlayer()
 try:
     if sys.argv[1] == '1':
         np = nim_player1.NimPlayer()
+        print("Using nim_player1.py")
     elif sys.argv[1] == '2':
         np = nim_player2.NimPlayer()
+        print("Using nim_player2.py")
     else: 
       print_help()
 
@@ -39,7 +41,7 @@ try:
 except:
     print_help()
     
-    print("Using default '1'")
+    print("Using default nim_player1.py")
 
 board = []
 try:
@@ -81,7 +83,6 @@ def player_play(board):
 
     stupid_bool = False
     new_board = [-1,-1,-1,-1]
-    print(board)
     print("---------")
     while not is_valid_move(board, new_board):
       if stupid_bool:
@@ -94,6 +95,7 @@ def player_play(board):
       new_board_str = input()
       new_board = [int(x) for x in new_board_str.split(",")]
 
+      print("Player Turn Over")
       return new_board.copy()
 
 def take_turn(board, play_func):
@@ -102,9 +104,15 @@ def take_turn(board, play_func):
 
 first_player = np.play
 second_player = player_play
+player_one_name = "AI"
+player_two_name = "Human"
 if player_first_move == 0:
     first_player = player_play
     second_player = np.play
+    player_one_name = "Human"
+
+    player_two_name = "AI"
+
 
 while winner == None:
     print(board)
@@ -113,10 +121,15 @@ while winner == None:
     if is_board_lost(board):
         winner = "Player 2"
         break
+    
+    print(board)
     board = take_turn(board, second_player)
     if is_board_lost(board):
         winner = "Player 1"
         break
     
-        
-print("The winner is: ", winner)
+winner_name = player_two_name
+if winner == "Player 1":
+    winner_name = player_one_name
+    
+print("The winner is: ", winner + ", ", winner_name)
