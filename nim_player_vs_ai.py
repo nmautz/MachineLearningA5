@@ -77,7 +77,7 @@ def is_valid_move(board, new_board):
               return False
           if board[i] < 0:
               return False
-  return columns_changed == 1    
+  return columns_changed == 1 and board != new_board  
 
 def player_play(board):
 
@@ -95,8 +95,8 @@ def player_play(board):
       new_board_str = input()
       new_board = [int(x) for x in new_board_str.split(",")]
 
-      print("Player Turn Over")
-      return new_board.copy()
+    print("Player Turn Over")
+    return new_board.copy()
 
 def take_turn(board, play_func):
     new_board = play_func(board)
