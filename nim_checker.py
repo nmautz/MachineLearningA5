@@ -20,14 +20,14 @@ import numpy as np
 
 
 try:
-    import nim_player 
+    import nim_player1 
     print("Test 1: Pass")
 except:
     print("Test 1: Fail (Put this file in the same directory as your \'nim_player.py\'",end="")
     print(" Or, rename your file for the assignment to \'nim_player.py\')")
 
 try:
-    p1 = nim_player.NimPlayer()
+    p1 = nim_player1.NimPlayer()
     print("Test 2: Pass")
 except:
     print("Test 3: Fail (Make sure that your class is named \'NimPlayer\')")    
