@@ -1,6 +1,7 @@
 #Nathan Mautz
 #09/29/23
 #Nim player that calculates all possible moves and plays the first one.
+import numpy as np
 class NimPlayer:
   
   def __init__(self):
@@ -23,11 +24,21 @@ class NimPlayer:
         for i in range(1, number+1):
           new_state = state_arr.copy()
           new_state[state_arr.index(number)] -= i
-          next_states_arr.append(new_state)
+          if not np.array_equal(new_state, state_arr):
+            next_states_arr.append(new_state.copy())
+    if len(next_states_arr) == 0 and state_arr != [0,0,0,0]:
+      print("No moves!!!! left")
     return next_states_arr
 
   def play(self, state_arr):
     next_states = self.get_next_states(state_arr)
     if len(next_states) == 0:
+      print("No moves left")
       return [0,0,0,0]
-    return self.get_next_states(state_arr)[0]
+  
+    for next_state in next_states:
+
+      if self.nim_sum(next_state) == 0:
+        return next_state
+      
+    return next_states[0]

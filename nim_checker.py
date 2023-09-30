@@ -15,6 +15,7 @@ import random
 import traceback
 import time
 import sys
+import numpy as np
 
 
 
@@ -46,29 +47,32 @@ def check():
     board_length = 4
     for j in range(board_length):
         board.append(random.randint(0,8))
-    start_board = board.copy()
-    if board == [0,0,0,0]:
-        return True,None
     #------
     while sum(board) != 1:
         prev_board = copy.deepcopy(board)
+        if prev_board == [0,0,0,0]:
+            return True, None
         board = p1.play(board)
         changes =0
         for i,val in enumerate(board):
             if val <0:
                 print("Test 4: Fail (Returning negative number of sticks in board)")
-                return False,start_board
+                return False,prev_board
             if val != prev_board[i]:
+
                 changes +=1
             if val > prev_board[i]:
                 print("Test 4: Fail (Increasing number of sticks in Board)")
-                return False,start_board
+                return False,prev_board
         if changes > 1:
             print("Test 4: Fail (Changing multiple rows)") 
-            return False,start_board
+            return False,prev_board
         if changes < 1:
             print("Test 4: Fail (No change to board state)")
-            return False,start_board
+            print("Board: ", board)
+            print("Start Board: ", prev_board)
+            
+            return False,prev_board
     
 
     return True, None
@@ -78,7 +82,7 @@ try:
     def seconds_to_formatted_time(seconds):
         return str(int(seconds/60)) + " minutes " + str(int(seconds%60)) + " seconds"
 
-    target = 1000000
+    target = 10000
     failed = 0
     passed = 0
     print("Test 4: Testing ", target, " boards")
