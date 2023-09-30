@@ -28,6 +28,8 @@ try:
     target = 10000
     p1_wins = 0
     p2_wins = 0
+    np1_wins = 0
+    np2_wins = 0
     print("Testing ", target, " boards")
     print()
     time_elapsed_s = 0
@@ -47,9 +49,11 @@ try:
         does_player_one_starts_first = bool(random.randint(0,1))
         p1 = nim_player1.NimPlayer()
         p2 = nim_player2.NimPlayer()
+        player_1 = 1
         if not does_player_one_starts_first:
           p1 = nim_player2.NimPlayer()
           p2 = nim_player1.NimPlayer()
+          player_1 = 2
 
         p1_winner = None
         while p1_winner == None:
@@ -62,8 +66,16 @@ try:
 
         if p1_winner:
             p1_wins += 1
+            if player_1 == 1:
+                np1_wins += 1
+            else:
+                np2_wins += 1
         else:
-            p2_wins += 1     
+            p2_wins += 1  
+            if player_1 == 1:
+                np2_wins += 1
+            else:
+                np1_wins += 1
         
         e_time = time.time()
         time_elapsed_s += e_time - s_time
@@ -77,6 +89,9 @@ try:
     print()
     print("P1 Wins: ", p1_wins, " p2 Wins: ", p2_wins)
     print("P1 Win/Loss Ratio:", p1_wins/target, " P2 Win/Loss Ratio:", p2_wins/target)
+
+    print("Nim Player 1 Wins: ", np1_wins, " Nim Player 2 Wins: ", np2_wins)
+    print("Nim Player 1 Win/Loss Ratio:", np1_wins/target, " Nim Player 2 Win/Loss Ratio:", np2_wins/target)
   
 
 except Exception as e:
