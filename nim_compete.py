@@ -38,10 +38,7 @@ try:
     print()
     time_elapsed_s = 0
     def is_board_lost(board):
-        for i in range(len(board)):
-            if board[i] > 0:
-                return False
-        return True
+        return board == [0,0,0,0]
 
     for i in range(target):
         s_time = time.time()
@@ -65,9 +62,10 @@ try:
             board = p1.play(board)
             if is_board_lost(board):
               p1_winner = False
-            board = p2.play(board)
-            if is_board_lost(board):
-              p1_winner = True
+            else:
+              board = p2.play(board)
+              if is_board_lost(board):
+                p1_winner = True
 
         if p1_winner:
             p1_wins += 1

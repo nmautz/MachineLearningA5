@@ -28,38 +28,30 @@ class NimPlayer:
             next_states_arr.append(new_state.copy())
     return next_states_arr
 
-  def board_in_endgame_state(self,state_arr):
-    bigger_than_one_count = 0
-    for number in state_arr:
-      if number > 1:
-        bigger_than_one_count += 1
-
-    return bigger_than_one_count == 1
-
-  def is_good_move_in_endgame(self, state_arr):
-    number_of_ones = 0
-    for number in state_arr:
-      if number > 1:
-        return False
-      elif number == 1:
-        number_of_ones += 1
-
-    return number_of_ones%2 == 1
-    
+  def get_state_score(self,state_arr, is_friendly_turn):
+    if state_arr == [0,0,0,0] and is_friendly_turn:
+      return -1
+    elif state_arr == [0,0,0,0] and not is_friendly_turn:
+      return 1
+    else:
+      next_states = self.get_next_states(state_arr)
+      score = 0
+      for next_state in next_states:
+        score += self.get_state_score(next_state, not is_friendly_turn)
+      return score
 
   def play(self, state_arr):
     next_states = self.get_next_states(state_arr)
     if len(next_states) == 0:
-      return [0,0,0,0]
-  
+      print(state_arr)
+      return state_arr
+    best_state = next_states[0]
+    best_score = self.get_state_score(best_state, False)
     for next_state in next_states:
-
-      if self.board_in_endgame_state(state_arr):
-        if self.is_good_move_in_endgame(next_state):
-          return next_state
-      else:
-        if self.nim_sum(next_state) == 0:
-          return next_state
-
-    return next_states[0]
-
+      score = self.get_state_score(next_state, False)
+      if score > best_score:
+        best_state = next_state
+        best_score = score
+    return best_state
+      
+    
