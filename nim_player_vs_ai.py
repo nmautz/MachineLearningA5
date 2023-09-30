@@ -61,9 +61,9 @@ def is_board_lost(board):
 winner = None
 player_first_move = random.randint(0,1)
 if player_first_move == 0:
-    print("Player goes first")
+    print("Player 1: Human, Player 2: AI")
 else:
-    print("AI goes first")
+    print("Player 1: AI, Player 2: Human")
 
 def is_valid_move(board, new_board):
   columns_changed = 0
@@ -89,19 +89,33 @@ def player_play(board):
       else:
         stupid_bool = True
 
-      print("Enter new board state")
+      print("Enter new board state \"x,x,x,x\"")
       print("---------")
       new_board_str = input()
       new_board = [int(x) for x in new_board_str.split(",")]
 
+      return new_board.copy()
+
+def take_turn(board, play_func):
+    new_board = play_func(board)
+    return new_board.copy()
+
+first_player = np.play
+second_player = player_play
+if player_first_move == 0:
+    first_player = player_play
+    second_player = np.play
 
 while winner == None:
     print(board)
-    if player_first_move == 0:
-        print("Player's turn")
-        #TODO
-    else:
-        print("AI's turn")
-        board = np.play(board)
-        print(board)
+
+    board = take_turn(board, first_player)
+    if is_board_lost(board):
+        winner = "Player 2"
+        break
+    board = take_turn(board, second_player)
+    if is_board_lost(board):
+        winner = "Player 1"
+        break
+    
         
