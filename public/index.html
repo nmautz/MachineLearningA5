@@ -59,8 +59,9 @@
         }
         for(let i = 0; i < 4; ++i){
           plus[i].hidden = true
-          minus[i].style.visibility = "visible"
+          minus[i].style.visibility = "hidden"
         }
+        game_started_h2.innerHTML = "Please wait for AI to finish move"
 
         max_num_at_i = []
         for(let i = 0; i < 4; ++i){
@@ -73,6 +74,7 @@
         }
         const url = `/play?board=${boardValue}`;
         // Make the GET request
+
         fetch(url)
           .then((response) => {
             if (!response.ok) {
@@ -89,6 +91,11 @@
             stack2.innerHTML = data[1]
             stack3.innerHTML = data[2]
             stack4.innerHTML = data[3]
+            for(let i = 0; i < 4; ++i){
+              plus[i].hidden = true
+              minus[i].style.visibility = "visible"
+            }
+            game_started_h2.innerHTML = "Your turn"
 
             
           })
@@ -137,7 +144,7 @@
   </script>
 </head>
 <body>
-  <h1>Nim Player GUI v0.2</h1>
+  <h1>Nim Player GUI v0.3</h1>
   <h2 id="game-started-h2">Game not started - Select start state then click play</h2>
   <button id="minus1" class="plus-minus-btn">-</button><p id="stack1" style="display: inline;">1</p><button id="plus1" class="plus-minus-btn">+</button><br>
   <button id="minus2" class="plus-minus-btn">-</button><p id="stack2" style="display: inline;">3</p><button id="plus2" class="plus-minus-btn">+</button><br>
