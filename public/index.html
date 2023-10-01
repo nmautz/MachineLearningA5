@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NimPlayer GUI</title>
+  <script>
+
+    document.addEventListener('DOMContentLoaded', ()=>{
+      const minus1 = document.getElementById("minus1")
+      const minus2 = document.getElementById("minus2")
+      const minus3 = document.getElementById("minus3")
+      const minus4 = document.getElementById("minus4")
+
+      const minus = [minus1,minus2,minus3,minus4]
+
+      const plus1 = document.getElementById("plus1")
+      const plus2 = document.getElementById("plus2")
+      const plus3 = document.getElementById("plus3")
+      const plus4 = document.getElementById("plus4")
+
+      const plus = [plus1,plus2,plus3,plus4]
+
+      const stack1 = document.getElementById("stack1")
+      const stack2 = document.getElementById("stack2")
+      const stack3 = document.getElementById("stack3")
+      const stack4 = document.getElementById("stack4")
+
+      const stack = [stack1,stack2,stack3,stack4]
+
+      for(let i =0; i < 4; ++i){
+        minus[i].addEventListener('click', ()=>{
+          stack[i].innerHTML = Number(stack[i].innerHTML)-1
+        })
+        plus[i].addEventListener('click',()=>{
+          stack[i].innerHTML = Number(stack[i].innerHTML)+1
+        })
+      }
+    })
+
+
+
+  </script>
+</head>
+<body>
+  <h1>Nim Player GUI v0.1</h1>
+  <button id="minus1" class="plus-minus-btn">-</button><p id="stack1" style="display: inline;">1</p><button id="plus1" class="plus-minus-btn">+</button><br>
+  <button id="minus2" class="plus-minus-btn">-</button><p id="stack2" style="display: inline;">1</p><button id="plus2" class="plus-minus-btn">+</button><br>
+  <button id="minus3" class="plus-minus-btn">-</button><p id="stack3" style="display: inline;">1</p><button id="plus3" class="plus-minus-btn">+</button><br>
+  <button id="minus4" class="plus-minus-btn">-</button><p id="stack4" style="display: inline;">1</p><button id="plus4" class="plus-minus-btn">+</button><br>
+
+</body>
+</html>

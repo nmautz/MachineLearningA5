@@ -4,6 +4,7 @@ const app = express();
 const port = 3000; // You can choose any port you prefer
 const spawn = require('child_process').spawn;
 
+app.use(express.static('public'))
 // Define a route to handle the GET request
 app.get('/play', (req, res) => {
   board = req.query.board
