@@ -93,6 +93,11 @@
           if(tmp >= 0){
             stack[i].innerHTML = tmp
             plus[i].hidden = false
+            for(let j = 0; j < 4; ++j){
+              if(j != i && game_started){
+                minus[j].style.visibility = "hidden"
+              }
+            }
           }
           
           
@@ -101,9 +106,13 @@
           let tmp = Number(stack[i].innerHTML)+1
           if(tmp<=max_num_at_i[i] || !game_started){
             stack[i].innerHTML = tmp
-          }else{
-            console.log(tmp)
-            console.log(max_num_at_i[i])
+            if(tmp == max_num_at_i[i]){
+              for(let j = 0; j < 4; ++j){
+                minus[j].style.visibility = "visible"
+                plus[j].hidden = true
+              }
+            }
+     
           }
 
         })
