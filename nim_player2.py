@@ -27,7 +27,7 @@ class NimPlayer:
           if not np.array_equal(new_state, state_arr):
             next_states_arr.append(new_state.copy())
     return next_states_arr
-
+  
   def board_in_endgame_state(self,state_arr):
     bigger_than_one_count = 0
     for number in state_arr:
@@ -46,6 +46,26 @@ class NimPlayer:
 
     return number_of_ones%2 == 1
     
+
+  def minimax(self, state_arr, depth, maximizing_player):
+    if depth == 0 or self.is_game_won(state_arr):
+      #return static evaluation of the state
+      if maximizing_player:
+        if self.board_in_endgame_state(state_arr):
+          if self.is_good_move_in_endgame(state_arr):
+            return 1
+          else:
+            return -1
+    if maximizing_player:
+      value = -np.inf
+      for next_state in self.get_next_states(state_arr):
+        value = max(value, minimax(next_state, depth-1, False))
+      return value
+    else:
+      value = np.inf
+      for next_state in self.get_next_states(state_arr):
+        value = min(value, minimax(next_state, depth-1, True))
+      return value
 
   def play(self, state_arr):
     next_states = self.get_next_states(state_arr)
