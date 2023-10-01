@@ -7,6 +7,7 @@
   <script>
 
     document.addEventListener('DOMContentLoaded', ()=>{
+      var game_started = false
       const minus1 = document.getElementById("minus1")
       const minus2 = document.getElementById("minus2")
       const minus3 = document.getElementById("minus3")
@@ -31,11 +32,21 @@
       const reset_btn = document.getElementById("reset-btn")
       const play_btn = document.getElementById("play-btn")
       reset_btn.addEventListener('click',()=>{
-        alert("TODO")
+          game_started = false
+          for(let i = 0; i < 4; ++i){
+            plus[i].hidden = true
+          }
       }
       )
       play_btn.addEventListener('click',()=>{
         // Define the URL with the 'board' parameter
+        if(!game_started){
+          game_started = true
+          for(let i = 0; i < 4; ++i){
+            plus[i].hidden = true
+          }
+        }
+
         const boardValue = []; 
         for(let i = 0; i < 4; ++i){
           boardValue.push(Number(stack[i].innerHTML))
