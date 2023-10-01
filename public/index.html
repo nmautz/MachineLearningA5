@@ -28,6 +28,17 @@
 
       const stack = [stack1,stack2,stack3,stack4]
 
+      const reset_btn = document.getElementById("reset-btn")
+      const play_btn = document.getElementById("play-btn")
+      reset_btn.addEventListener('click',()=>{
+        alert("TODO")
+      }
+      )
+      play_btn.addEventListener('click',()=>{
+        alert("TODO")
+      }
+      )
+
       for(let i =0; i < 4; ++i){
         minus[i].addEventListener('click', ()=>{
           stack[i].innerHTML = Number(stack[i].innerHTML)-1
@@ -49,5 +60,7 @@
   <button id="minus3" class="plus-minus-btn">-</button><p id="stack3" style="display: inline;">1</p><button id="plus3" class="plus-minus-btn">+</button><br>
   <button id="minus4" class="plus-minus-btn">-</button><p id="stack4" style="display: inline;">1</p><button id="plus4" class="plus-minus-btn">+</button><br>
 
+  <button id="play-btn">Play Move</button><br>
+  <button id="reset-btn">Reset changes</button>
 </body>
 </html>
