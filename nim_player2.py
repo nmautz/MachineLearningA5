@@ -52,22 +52,22 @@ class NimPlayer:
 
     if self.is_game_won(state_arr):
       if maximizing_player:
-        return 4
+        return 1
       else:
-        return -4
+        return -1
     
     if depth == 0:
       if is_end_game:
         if not self.is_good_move_in_endgame(state_arr):
           if maximizing_player:
-            return 2
+            return 1
           else:
-            return -2
+            return -1
         else:
           if maximizing_player:
-            return -2
+            return -1
           else:
-            return 2
+            return 1
       else:
         if self.nim_sum(state_arr) == 0:
           if maximizing_player:
