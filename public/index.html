@@ -35,7 +35,34 @@
       }
       )
       play_btn.addEventListener('click',()=>{
-        alert("TODO")
+        // Define the URL with the 'board' parameter
+        const boardValue = []; 
+        for(let i = 0; i < 4; ++i){
+          boardValue.push(Number(stack[i].innerHTML))
+        }
+        const url = `/play?board=${boardValue}`;
+
+        // Make the GET request
+        fetch(url)
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json(); // You can use .text() or other methods depending on the response type
+          })
+          .then((data) => {
+            // Handle the response data here
+            stack1.innerHTML = data[0]
+            stack2.innerHTML = data[1]
+            stack3.innerHTML = data[2]
+            stack4.innerHTML = data[3]
+            
+          })
+          .catch((error) => {
+            // Handle any errors that occurred during the fetch
+            console.error('Fetch error:', error);
+          });
+
       }
       )
 
