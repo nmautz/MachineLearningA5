@@ -72,16 +72,27 @@ class NimPlayer:
             return 1
           else:
             return -1
-        
+    else: 
+      if self.board_in_endgame_state(state_arr):
+        if self.is_good_move_in_endgame(state_arr): #confusing -- means good next move.
+          if not maximizing_player:
+            return
+      elif self.nim_sum(state_arr) == 0:
+        if maximizing_player:
+          return
     if maximizing_player:
       value = -np.inf
       for next_state in self.get_next_states(state_arr):
-        value = max(value, self.minimax(next_state, depth-1, False))
+        result = self.minimax(next_state, depth-1, False)
+        if result is not None:
+          value = max(value, result)
       return value
     else:
       value = np.inf
       for next_state in self.get_next_states(state_arr):
-        value = min(value, self.minimax(next_state, depth-1, True))
+        result = self.minimax(next_state, depth-1, True)
+        if result is not None:
+          value = min(value, result)
       return value
 
   def play(self, state_arr):
