@@ -33,23 +33,33 @@
       const reset_btn = document.getElementById("reset-btn")
       const play_btn = document.getElementById("play-btn")
 
+      const game_started_h2 = document.getElementById("game-started-h2")
+
 
 
       reset_btn.addEventListener('click',()=>{
           game_started = false
           for(let i = 0; i < 4; ++i){
-            plus[i].hidden = true
+            plus[i].hidden = false
+            minus[i].style.visibility = 'visible'
           }
+          stack1.innerHTML = 1
+          stack2.innerHTML = 3
+          stack3.innerHTML = 5
+          stack4.innerHTML = 7
+          game_started_h2.innerHTML = "Game not started - Select start state then click play"
       }
       )
       play_btn.addEventListener('click',()=>{
         // Define the URL with the 'board' parameter
         if(!game_started){
           game_started = true
+          game_started_h2.innerHTML = "Game Started, click play to enter move"
           max_num_at_i = []
         }
         for(let i = 0; i < 4; ++i){
           plus[i].hidden = true
+          minus[i].style.visibility = "visible"
         }
 
         max_num_at_i = []
@@ -125,10 +135,11 @@
 </head>
 <body>
   <h1>Nim Player GUI v0.1</h1>
+  <h2 id="game-started-h2">Game not started - Select start state then click play</h2>
   <button id="minus1" class="plus-minus-btn">-</button><p id="stack1" style="display: inline;">1</p><button id="plus1" class="plus-minus-btn">+</button><br>
-  <button id="minus2" class="plus-minus-btn">-</button><p id="stack2" style="display: inline;">1</p><button id="plus2" class="plus-minus-btn">+</button><br>
-  <button id="minus3" class="plus-minus-btn">-</button><p id="stack3" style="display: inline;">1</p><button id="plus3" class="plus-minus-btn">+</button><br>
-  <button id="minus4" class="plus-minus-btn">-</button><p id="stack4" style="display: inline;">1</p><button id="plus4" class="plus-minus-btn">+</button><br>
+  <button id="minus2" class="plus-minus-btn">-</button><p id="stack2" style="display: inline;">3</p><button id="plus2" class="plus-minus-btn">+</button><br>
+  <button id="minus3" class="plus-minus-btn">-</button><p id="stack3" style="display: inline;">5</p><button id="plus3" class="plus-minus-btn">+</button><br>
+  <button id="minus4" class="plus-minus-btn">-</button><p id="stack4" style="display: inline;">7</p><button id="plus4" class="plus-minus-btn">+</button><br>
 
   <button id="play-btn">Play Move</button><br>
   <button id="reset-btn">Reset changes</button>
