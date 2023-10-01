@@ -25,7 +25,8 @@ class NimPlayer:
           new_state = state_arr.copy()
           new_state[state_arr.index(number)] -= i
           if not np.array_equal(new_state, state_arr):
-            next_states_arr.append(new_state.copy())
+            if not new_state in next_states_arr:
+              next_states_arr.append(new_state.copy())
     return next_states_arr
   
   def board_in_endgame_state(self,state_arr):
