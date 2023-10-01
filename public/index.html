@@ -8,6 +8,7 @@
 
     document.addEventListener('DOMContentLoaded', ()=>{
       var game_started = false
+      var max_num_at_i = []
       const minus1 = document.getElementById("minus1")
       const minus2 = document.getElementById("minus2")
       const minus3 = document.getElementById("minus3")
@@ -31,6 +32,9 @@
 
       const reset_btn = document.getElementById("reset-btn")
       const play_btn = document.getElementById("play-btn")
+
+
+
       reset_btn.addEventListener('click',()=>{
           game_started = false
           for(let i = 0; i < 4; ++i){
@@ -42,9 +46,15 @@
         // Define the URL with the 'board' parameter
         if(!game_started){
           game_started = true
-          for(let i = 0; i < 4; ++i){
-            plus[i].hidden = true
-          }
+          max_num_at_i = []
+        }
+        for(let i = 0; i < 4; ++i){
+          plus[i].hidden = true
+        }
+
+        max_num_at_i = []
+        for(let i = 0; i < 4; ++i){
+          max_num_at_i[i] = Number(stack[i].innerHTML)
         }
 
         const boardValue = []; 
@@ -79,10 +89,23 @@
 
       for(let i =0; i < 4; ++i){
         minus[i].addEventListener('click', ()=>{
-          stack[i].innerHTML = Number(stack[i].innerHTML)-1
+          let tmp = Number(stack[i].innerHTML)-1
+          if(tmp >= 0){
+            stack[i].innerHTML = tmp
+            plus[i].hidden = false
+          }
+          
+          
         })
         plus[i].addEventListener('click',()=>{
-          stack[i].innerHTML = Number(stack[i].innerHTML)+1
+          let tmp = Number(stack[i].innerHTML)+1
+          if(tmp<=max_num_at_i[i] || !game_started){
+            stack[i].innerHTML = tmp
+          }else{
+            console.log(tmp)
+            console.log(max_num_at_i[i])
+          }
+
         })
       }
     })
