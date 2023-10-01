@@ -11,6 +11,7 @@ app.get('/play', (req, res) => {
   spawn('python3.10', ['nim_player_gui_helper.py',board])
     .stdout.on('data', (data) => {
       board = data.toString()
+      console.log(board)
       res.send(board)
     }
   );

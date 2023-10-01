@@ -72,13 +72,15 @@
           boardValue.push(Number(stack[i].innerHTML))
         }
         const url = `/play?board=${boardValue}`;
-
         // Make the GET request
         fetch(url)
           .then((response) => {
             if (!response.ok) {
+              alert("Failed to reach server")
+
               throw new Error(`HTTP error! Status: ${response.status}`);
             }
+
             return response.json(); // You can use .text() or other methods depending on the response type
           })
           .then((data) => {
@@ -87,6 +89,7 @@
             stack2.innerHTML = data[1]
             stack3.innerHTML = data[2]
             stack4.innerHTML = data[3]
+
             
           })
           .catch((error) => {
