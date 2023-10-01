@@ -91,7 +91,7 @@ class NimPlayer:
           value = self.minimax(next_state, depth-1, False, self.board_in_endgame_state(state_arr))
           best_value = max(best_value, value)
 
-      if best_value == -np.inf or best_value < 0:
+      if best_value == -np.inf or best_value < -0.5:
         for next_state in self.get_next_states(state_arr):
           value = self.minimax(next_state, depth-1, False, self.board_in_endgame_state(state_arr))
           value *= 0.5
@@ -110,7 +110,7 @@ class NimPlayer:
           value = self.minimax(next_state, depth-1, True, self.board_in_endgame_state(state_arr))
           best_value = min(best_value, value)
 
-      if best_value == np.inf or best_value > 0:
+      if best_value == np.inf or best_value > 0.5:
         for next_state in self.get_next_states(state_arr):
           value = self.minimax(next_state, depth-1, True, self.board_in_endgame_state(state_arr))
           value *= 0.5
