@@ -50,12 +50,7 @@ class NimPlayer:
 
   def minimax(self, state_arr, depth, maximizing_player, is_end_game):
 
-    if self.is_game_won(state_arr):
-      if maximizing_player:
-        return 1
-      else:
-        return -1
-    
+
     if depth == 0:
       if is_end_game:
         if not self.is_good_move_in_endgame(state_arr):
