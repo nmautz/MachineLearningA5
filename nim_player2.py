@@ -8,7 +8,7 @@ class NimPlayer:
     pass
 
   def is_game_won(self, state_arr):
-    return len(self.get_next_states(state_arr)) == 0
+    return sum(state_arr) == 1
     
   def nim_sum(self, state_arr):
     total = 0
@@ -52,32 +52,49 @@ class NimPlayer:
       #return static evaluation of the state
       if maximizing_player:
         if self.board_in_endgame_state(state_arr):
+          if not self.is_good_move_in_endgame(state_arr): #confusing -- means good next move.
+            return 1
+          else:
+            return -1
+        else: 
+          if self.nim_sum(state_arr) == 0:
+            return -1
+          else:
+            return 1
+      else:
+        if self.board_in_endgame_state(state_arr):
           if self.is_good_move_in_endgame(state_arr):
             return 1
           else:
             return -1
+        else:
+          if self.nim_sum(state_arr) == 0:
+            return 1
+          else:
+            return -1
+        
     if maximizing_player:
       value = -np.inf
       for next_state in self.get_next_states(state_arr):
-        value = max(value, minimax(next_state, depth-1, False))
+        value = max(value, self.minimax(next_state, depth-1, False))
       return value
     else:
       value = np.inf
       for next_state in self.get_next_states(state_arr):
-        value = min(value, minimax(next_state, depth-1, True))
+        value = min(value, self.minimax(next_state, depth-1, True))
       return value
 
   def play(self, state_arr):
     next_states = self.get_next_states(state_arr)
-  
+
+    best_state = None
+    best_value = -np.inf
     for next_state in next_states:
-
-      if self.board_in_endgame_state(state_arr):
-        if self.is_good_move_in_endgame(next_state):
-          return next_state
-      else:
-        if self.nim_sum(next_state) == 0:
-          return next_state
-
+      value = self.minimax(next_state, 5, False)
+      if value > best_value:
+        best_state = next_state
+        best_value = value
+    if best_state is not None:
+      return best_state
     return next_states[0]
 
