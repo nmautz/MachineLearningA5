@@ -48,7 +48,7 @@ class NimPlayer:
     return number_of_ones%2 == 1
     
 
-  def minimax(self, state_arr, depth, maximizing_player):
+  def minimax(self, state_arr, depth, maximizing_player, is_end_game):
 
     if self.is_game_won(state_arr):
       if maximizing_player:
@@ -57,7 +57,7 @@ class NimPlayer:
         return -4
     
     if depth == 0:
-      if self.board_in_endgame_state(state_arr):
+      if is_end_game:
         if not self.is_good_move_in_endgame(state_arr):
           if maximizing_player:
             return 2
@@ -83,14 +83,14 @@ class NimPlayer:
     if maximizing_player:
       best_value = -np.inf
       for next_state in self.get_next_states(state_arr):
-        value = self.minimax(next_state, depth-1, False)
+        value = self.minimax(next_state, depth-1, False, self.board_in_endgame_state(state_arr))
         best_value = max(best_value, value)
       return best_value
     
     else:
       best_value = np.inf
       for next_state in self.get_next_states(state_arr):
-        value = self.minimax(next_state, depth-1, True)
+        value = self.minimax(next_state, depth-1, True, self.board_in_endgame_state(state_arr))
         best_value = min(best_value, value)
       return best_value
 
@@ -103,7 +103,7 @@ class NimPlayer:
     best_state = None
     best_value = -np.inf
     for next_state in next_states:
-      value = self.minimax(next_state, 0, False)
+      value = self.minimax(next_state, 0, False, self.board_in_endgame_state(state_arr))
       if value > best_value:
         best_state = next_state
         best_value = value
