@@ -126,7 +126,7 @@ class NimPlayer:
     best_state = None
     best_value = -np.inf
     for next_state in next_states:
-      value = self.minimax(next_state, 5, False, self.board_in_endgame_state(state_arr))
+      value = self.minimax(next_state, 4, False, self.board_in_endgame_state(state_arr))
       if value > best_value:
         best_state = next_state
         best_value = value
