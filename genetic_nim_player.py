@@ -1,6 +1,6 @@
 #Nathan Mautz
-#09/29/23
-#Nim player that calculates all possible moves and plays the first one.
+#10/18/23
+#Nim player used for training in genetic_trainer.py. Has no DNA
 import numpy as np
 class NimPlayer:
   
