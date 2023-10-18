@@ -2,20 +2,26 @@
 #10/18/23
 #Nim player used for training in genetic_trainer.py. Has no DNA
 import numpy as np
+import random
+
+class Gene:
+  def __init__(self, prev_board, curr_board, next_board):
+    self.prev_board = prev_board
+    self.curr_board = curr_board
+    self.next_board = next_board
+
+    
+
+
+
 class NimPlayer:
   
   def __init__(self):
-    pass
+    self.dna = []
+    self.prev_board = None
 
-  def is_game_won(self, state_arr):
-    return len(self.get_next_states(state_arr)) == 0
-    
-  def nim_sum(self, state_arr):
-    total = 0
-    for number in state_arr:
-      total ^= number
-    return total
-
+  def add_gene(self, gene):
+    self.dna.append(gene)
 
   def get_next_states(self, state_arr):
     next_states_arr = []  
@@ -29,36 +35,18 @@ class NimPlayer:
               next_states_arr.append(new_state.copy())
     return next_states_arr
 
-  def board_in_endgame_state(self,state_arr):
-    bigger_than_one_count = 0
-    for number in state_arr:
-      if number > 1:
-        bigger_than_one_count += 1
+  def find_related_gene(self, prev_board, curr_board):
+    for gene in self.dna:
+      if gene.prev_board == prev_board and gene.curr_board == curr_board:
+        return gene
+    # No gene found, generate new one
+    next_boards = self.get_next_states(curr_board)
+    next_boards = random.shuffle(next_boards)
+    gene = Gene(prev_board, curr_board, next_boards[0])
+    self.add_gene(gene) #Remember gene
+    return gene
 
-    return bigger_than_one_count == 1
-
-  def is_good_move_in_endgame(self, state_arr):
-    number_of_ones = 0
-    for number in state_arr:
-      if number > 1:
-        return False
-      elif number == 1:
-        number_of_ones += 1
-
-    return number_of_ones%2 == 1
-    
 
   def play(self, state_arr):
-    next_states = self.get_next_states(state_arr)
-  
-    for next_state in next_states:
-
-      if self.board_in_endgame_state(state_arr):
-        if self.is_good_move_in_endgame(next_state):
-          return next_state
-      else:
-        if self.nim_sum(next_state) == 0:
-          return next_state
-
-    return next_states[0]
+    return self.find_related_gene(self.prev_board, state_arr).next_board
 
