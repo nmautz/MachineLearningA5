@@ -23,6 +23,9 @@ mutation_severity = 0.05
 crossover_point = 0.5
 elitism_rate = 0.03
 migration_rate = 0.15
+reset_bottom_rate = 0.1
+
+
 
 
 
