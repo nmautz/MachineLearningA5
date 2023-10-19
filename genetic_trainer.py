@@ -26,6 +26,24 @@ migration_rate = 0.15
 reset_bottom_count = 10
 
 
+def play_nim_game(self, players):
+    board = [1,3,5,7]
+    player_index = 0
+
+    loser = None
+    while loser == None:
+        player = players[player_index]
+        board = player.play_turn(board)
+        if board == [0,0,0,0]:
+            loser = player
+        player_index = (player_index + 1) % 3
+    return loser
+    
+
+
+        
+
+
 def get_next_states(self, state_arr):
     next_states_arr = []  
     for number in state_arr:
