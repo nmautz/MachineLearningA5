@@ -18,12 +18,12 @@ except:
 generation_size = 99
 communities = 4
 epochs = 100
-mutation_rate = 0.1
+mutation_rate = 0.001
 mutation_severity = 0.05
 crossover_point = 0.5
 elitism_rate = 0.03
 migration_rate = 0.15
-reset_bottom_rate = 0.1
+reset_bottom_count = 10
 
 
 def get_next_states(self, state_arr):
@@ -46,8 +46,9 @@ def crossover(parent1, parent2):
         for gene2 in combined_dna:
             if gene.prev_board == gene2.prev_board and gene.curr_board == gene2.curr_board:
                 combined_dna.remove(gene2)
-    child = genetic_nim_player.GeneticNimPlayer()
+    child = genetic_nim_player.NimPlayer()
     child.dna = combined_dna
+    return child
 
 def mutate(individual):
     for gene in individual.dna:
@@ -56,8 +57,37 @@ def mutate(individual):
             next_boards = random.shuffle(next_boards)
             gene.next_board = next_boards[0]
 
+class IndividualFitness:
+    def __init__(self, ind, fitness):
+        self.ind = ind
+        self.fitness = fitness
+
+def determine_fitness(individual, population):
+    return 0
+
 def get_next_generation(current_population):
-    pass
+
+    ind_fitness = []
+    for individual in current_population:
+        ind_fitness.append(IndividualFitness(individual,determine_fitness(individual, current_population)))
+    #sort ind_fitness by fitness
+    ind_fitness = sorted(ind_fitness, key=lambda ind_fit: ind_fit.fitness, reverse=True)
+    next_generation = []
+    for i in range(int(len(ind_fitness)*elitism_rate)):
+        next_generation.append(ind_fitness[i].ind)
+
+    while len(next_generation) < generation_size - reset_bottom_count:   
+        parent1 = random.choice(ind_fitness)
+        parent2 = random.choice(ind_fitness)
+        child = crossover(parent1.ind, parent2.ind)
+        mutate(child)
+        next_generation.append(child) 
+    
+    while len(next_generation) < generation_size:
+        next_generation.append(genetic_nim_player.NimPlayer())
+    return next_generation
+
+    
 
 def save_dna_to_file(dna, filename):
     pass
@@ -65,20 +95,15 @@ def save_dna_to_file(dna, filename):
 def load_dna_from_file(filename):
     pass
 
-def determine_fitness(individual, population):
-    pass
+
 
 
 population = [] #List of GeneticNimPlayer objects with no DNA
 for i in range(generation_size):
-    population.append(genetic_nim_player.GeneticNimPlayer())
+    population.append(genetic_nim_player.NimPlayer())
 
 for epoch in range(epochs):
     print("Epoch " + str(epoch))
-    for individual in population:
-        individual.play_game(communities)
-    population = sorted(population, key=lambda individual: individual.get_fitness(), reverse=True)
-    print("Best Fitness: " + str(population[0].get_fitness()))
     population = get_next_generation(population)
     print()
 
