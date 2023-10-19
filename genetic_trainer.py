@@ -41,7 +41,22 @@ def save_dna_to_file(dna, filename):
 def load_dna_from_file(filename):
     pass
 
+def determine_fitness(individual, population):
+    pass
 
+
+population = [] #List of GeneticNimPlayer objects with no DNA
+for i in range(generation_size):
+    population.append(genetic_nim_player.GeneticNimPlayer())
+
+for epoch in range(epochs):
+    print("Epoch " + str(epoch))
+    for individual in population:
+        individual.play_game(communities)
+    population = sorted(population, key=lambda individual: individual.get_fitness(), reverse=True)
+    print("Best Fitness: " + str(population[0].get_fitness()))
+    population = get_next_generation(population)
+    print()
 
 
 
