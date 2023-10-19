@@ -26,6 +26,24 @@ migration_rate = 0.15
 reset_bottom_rate = 0.1
 
 
+def crossover(parent1, parent2):
+    pass
+
+def mutate(individual):
+    pass
+
+def get_next_generation(current_population):
+    pass
+
+def save_dna_to_file(dna, filename):
+    pass
+
+def load_dna_from_file(filename):
+    pass
+
+
+
+
 
 
 
