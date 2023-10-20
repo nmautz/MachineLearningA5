@@ -2,7 +2,16 @@
 
 #Nathan Mautz
 #10/18/23
-#Nim player used for training in genetic_trainer.py. Has no DNA
+#Nim player used for playing in competition, loads in DNA from string.
+#DNA was created on 10/19/23 after 100 epochs with a generation size of 99
+#DNA is stored in a string, and is parsed into a list of Gene objects.
+#Each Gene object has 3 attributes:
+#  prev_board: The previous board state
+#  curr_board: The current board state
+#  next_board: The next board state
+# 
+# I used "https://www.textfixer.com/tools/remove-line-breaks.php" to remove the new lines from the saved DNA to past it as a string here
+#
 import numpy as np
 import random
 
