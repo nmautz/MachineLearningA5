@@ -24,6 +24,7 @@ crossover_point = 0.5
 elitism_rate = 0.03
 migration_rate = 0.15
 reset_bottom_count = 10
+current_epoch = 0 #for filename
 
 
 def play_nim_game(players):
@@ -72,7 +73,7 @@ def mutate(individual):
     for gene in individual.dna:
         if random.random() < mutation_rate:
             next_boards = get_next_states(gene.curr_board)
-            next_boards = random.shuffle(next_boards)
+            random.shuffle(next_boards)
             if next_boards != None:
                 gene.next_board = next_boards[0]
             else:
@@ -112,6 +113,8 @@ def get_next_generation(current_population):
         ind_fitness.append(IndividualFitness(individual,determine_fitness(individual, current_population)))
     #sort ind_fitness by fitness
     ind_fitness = sorted(ind_fitness, key=lambda ind_fit: ind_fit.fitness, reverse=True)
+    filename = "best_dna_epoch_ " + str(current_epoch) + ".txt"
+    save_dna_to_file(ind_fitness[0].ind.dna, filename)
     next_generation = []
     for i in range(int(len(ind_fitness)*elitism_rate)):
         next_generation.append(ind_fitness[i].ind)
@@ -130,7 +133,13 @@ def get_next_generation(current_population):
     
 
 def save_dna_to_file(dna, filename):
-    pass
+    f = open(filename, "w")
+    for gene in dna:
+        if gene.prev_board == None:
+            f.write("None " + str(gene.curr_board) + " " + str(gene.next_board) + "\n")
+        else:
+            f.write(str(gene.prev_board) + " " + str(gene.curr_board) + " " + str(gene.next_board) + "\n")
+    f.close()
 
 def load_dna_from_file(filename):
     pass
@@ -144,6 +153,7 @@ for i in range(generation_size):
 
 for epoch in range(epochs):
     print("Epoch " + str(epoch))
+    current_epoch = epoch #for filename
     population = get_next_generation(population)
     print()
 
