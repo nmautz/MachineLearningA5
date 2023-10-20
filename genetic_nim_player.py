@@ -42,7 +42,9 @@ class NimPlayer:
     # No gene found, generate new one
     next_boards = self.get_next_states(curr_board)
     next_boards = random.shuffle(next_boards)
-    gene = Gene(prev_board, curr_board, next_boards[0])
+    gene = Gene(prev_board, curr_board, [0,0,0,0])
+    if next_boards != None:
+      gene = Gene(prev_board, curr_board, next_boards[0])
     self.add_gene(gene) #Remember gene
     return gene
 

@@ -26,14 +26,14 @@ migration_rate = 0.15
 reset_bottom_count = 10
 
 
-def play_nim_game(self, players):
+def play_nim_game(players):
     board = [1,3,5,7]
     player_index = 0
 
     loser = None
     while loser == None:
         player = players[player_index]
-        board = player.play_turn(board)
+        board = player.play(board)
         if board == [0,0,0,0]:
             loser = player
         player_index = (player_index + 1) % 3
@@ -44,7 +44,7 @@ def play_nim_game(self, players):
         
 
 
-def get_next_states(self, state_arr):
+def get_next_states(state_arr):
     next_states_arr = []  
     for number in state_arr:
         if number > 0:
@@ -73,7 +73,10 @@ def mutate(individual):
         if random.random() < mutation_rate:
             next_boards = get_next_states(gene.curr_board)
             next_boards = random.shuffle(next_boards)
-            gene.next_board = next_boards[0]
+            if next_boards != None:
+                gene.next_board = next_boards[0]
+            else:
+                gene.next_board = [0,0,0,0]
 
 class IndividualFitness:
     def __init__(self, ind, fitness):
@@ -81,7 +84,26 @@ class IndividualFitness:
         self.fitness = fitness
 
 def determine_fitness(individual, population):
-    return 0
+    players = [individual]
+    games_played = 0
+    loses = 0
+    #I know this is super inefficient but I thought I had another week and cannot make it better in the short time i have to finish and train model
+    for i in range(0,len(population)):
+        if individual != population[i]:
+            if len(players) < 3:
+                players.append(population[i])
+
+            else:
+                loser_num = play_nim_game(players)
+                if loser_num == 0:
+                    loses +=1
+                games_played +=1
+                players = [individual]
+    return games_played - loses
+
+
+
+
 
 def get_next_generation(current_population):
 
