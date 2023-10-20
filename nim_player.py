@@ -15,14 +15,6 @@
 import numpy as np
 import random
 
-
-
-
-
-      
-  
-
-
 class NimPlayer:
 
   class Gene:
