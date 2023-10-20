@@ -22,21 +22,34 @@ class NimPlayer:
       self.prev_board = prev_board
       self.curr_board = curr_board
       self.next_board = next_board
-  
-  def load_dna_from_str(self,dna_str):
-    dna = []
-    current_gene = []
-    for gene_str in dna_str.split(" "):
-      if len(current_gene) < 3:
-        if gene_str != "None":
-          current_gene.append(list(map(int, gene_str[1:-1].split(","))))
-        else:
-          current_gene.append(None)
-        pass
-      else:
-        dna.append(self.Gene(current_gene[0], current_gene[1], current_gene[2]))
+  def load_dna_from_str(self, dna_str):
+      dna = []
+      current_gene = []
 
-    return dna
+      # Clean up the input data by removing extra characters and ensuring brackets around "None"
+
+      # Split the input data using a space as the delimiter
+      gene_str_list = dna_str.split(" ")
+
+      for gene_str in gene_str_list:
+          if len(current_gene) < 3:
+              try:
+                  gene_build = []
+                  gene_str = gene_str[1:-1]
+                  for char in gene_str:
+                    if char.isnumeric():
+                        gene_build.append(int(char))
+                    elif char == 'N':
+                        gene_build.append(None)
+                  current_gene.append(gene_build)
+                        
+              except ValueError:
+                  print(f"Invalid data: {gene_str}")
+          else:
+              dna.append(self.Gene(current_gene[0], current_gene[1], current_gene[2]))
+              current_gene = []
+
+      return dna
 
   def __init__(self):
 
