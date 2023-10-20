@@ -1,3 +1,5 @@
+
+
 #Nathan Mautz
 #10/18/23
 #Nim player used for training in genetic_trainer.py. Has no DNA
@@ -11,13 +13,32 @@ class Gene:
     self.next_board = next_board
 
     
+dna_str = "None [1, 3, 5, 7] [1, 3, 1, 7] [1, 3, 1, 7] [1, 2, 1, 3] [1, 2, 1, 1] [1, 2, 1, 1] [0, 2, 0, 1] [0, 1, 0, 1]"
 
+
+
+def load_dna_from_str():
+  dna = []
+  current_gene = []
+  for gene_str in dna_str.split(" "):
+    if len(current_gene) < 3:
+      if gene_str != "None":
+        current_gene.append(list(map(int, gene_str[1:-1].split(","))))
+      else:
+        current_gene.append(None)
+      pass
+    else:
+      dna.append(Gene(current_gene[0], current_gene[1], current_gene[2]))
+
+  return dna
+      
+  
 
 
 class NimPlayer:
   
   def __init__(self):
-    self.dna = []
+    self.dna = load_dna_from_str()
     self.prev_board = None
 
   def add_gene(self, gene):
