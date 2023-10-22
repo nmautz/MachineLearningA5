@@ -18,7 +18,7 @@ except:
 generation_size = 99
 communities = 4
 epochs = 100
-mutation_rate = 0.001
+mutation_rate = 0.03
 mutation_severity = 0.05
 crossover_point = 0.5
 elitism_rate = 0.03
@@ -133,7 +133,7 @@ def get_next_generation(current_population):
     
 
 def save_dna_to_file(dna, filename):
-    f = open(filename, "w")
+    f = open("./DNA/"+filename, "w")
     for gene in dna:
         if gene.prev_board == None:
             f.write("None " + str(gene.curr_board) + " " + str(gene.next_board) + "\n")
